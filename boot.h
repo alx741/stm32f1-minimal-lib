@@ -2,11 +2,6 @@
 
 #include <stdint.h>
 
-/* Number of IRQs a device supports */
-#ifndef IRQ_N
-#define IRQ_N 0
-#endif
-
 /* Cortex-M3 vector table */
 typedef struct
 {
@@ -23,11 +18,21 @@ typedef struct
     void*    _RESERVED_2;
     void*    PENDSV;
     void*    SYSTICK;
-    void*    IRQ[IRQ_N];
 } VECTOR_TABLE_t;
 
-
-/* Exception handlers */
-void __attribute__ ((weak)) nmi_handler(void);
+/* Exception handlers
+ *
+ * All handlers, except RESET, NMI, SYSTICK and IRQs, will halt
+ * the processor by default
+ */
+void __attribute__((naked)) RESET_HANDLER(void);
+void __attribute__ ((weak)) NMI_HANDLER(void);
+void __attribute__ ((weak)) HARD_FAULT_HANDLER(void);
+void __attribute__ ((weak)) MEMORY_MANAGEMENT_FAULT_HANDLER(void);
+void __attribute__ ((weak)) BUS_FAULT_HANDLER(void);
+void __attribute__ ((weak)) USAGE_FAULT_HANDLER(void);
+void __attribute__ ((weak)) SVCALL_HANDLER(void);
+void __attribute__ ((weak)) PENDSV_HANDLER(void);
+void __attribute__ ((weak)) SYSTICK_HANDLER(void);
 
 extern int main(void);
