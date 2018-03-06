@@ -1,13 +1,13 @@
-EXTERN (vector_table)
-ENTRY  (reset_handler)
-/* INPUT(vectors.c)     should??? */
-/* STARTUP(vectors.c)   should??? */
+ENTRY  (RESET_HANDLER)
+EXTERN (VECTOR_TABLE)
+EXTERN (IRQ_VECTOR_TABLE)
 
 SECTIONS
 {
 	.text :
     {
-		*(.vector_table)
+		*(.VECTOR_TABLE)
+		*(.IRQ_VECTOR_TABLE)
 		*(.text*)
 		*(.rodata*)
 	} >FLASH
