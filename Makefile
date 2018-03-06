@@ -1,14 +1,18 @@
-boot.bin: boot.elf
-	arm-none-eabi-objcopy -O binary boot.elf boot.bin
+SRC_DIR = .
+BINARY = main
+OBJECTS=$(foreach c_file, $(wildcard $(SRC_DIR)/*.c), $(c_file:.c=.o))
 
-boot.elf: boot.o
-	arm-none-eabi-gcc -Wl,--gc-sections -nostdlib -T stm32f103x8.ld boot.o -o boot.elf
+$(BINARY).bin: $(BINARY).elf
+	arm-none-eabi-objcopy -O binary $? $@
 
-boot.o: boot.c
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -c -nostdlib boot.c -o boot.o
+$(BINARY).elf: $(OBJECTS)
+	arm-none-eabi-gcc -Wl,--gc-sections -nostdlib -T stm32f103x8.ld $? -o $@
 
-burn: boot.bin
+%.o: %.c
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -c -nostdlib $? -o $@
+
+burn: $(BINARY).bin
 	st-flash write $< 0x8000000
 
 clean:
-	rm -f boot.o boot.elf boot.bin
+	rm -f $(OBJECTS) $(BINARY).elf $(BINARY).bin
