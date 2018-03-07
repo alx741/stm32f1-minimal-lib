@@ -16,7 +16,6 @@ SECTIONS
     {
 		_data_start = .;
 		*(.data*)
-		_data_end = .;
 	} >RAM AT >FLASH
     _data_size = SIZEOF(.data);
 	_data_load_start = LOADADDR(.data);
