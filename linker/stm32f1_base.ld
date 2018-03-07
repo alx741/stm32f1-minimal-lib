@@ -25,7 +25,6 @@ SECTIONS
         _bss_start = .;
 		*(.bss*)
 		*(COMMON)
-		_bss_end = .;
 	} >RAM
     _bss_size = SIZEOF(.bss);
 }
