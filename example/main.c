@@ -3,7 +3,7 @@
 
 void delay(void);
 
-bool state = false;
+int counter = 5;
 
 int main(void)
 {
@@ -18,22 +18,18 @@ int main(void)
     *gpio_crh &= ~(1 << 30);
     *gpio_crh &= ~(1 << 31);
 
-    if (state)
+    while (counter != 0)
     {
         *gpio_odr |= (1 << 15);
+        delay();
+        *gpio_odr &= ~(1 << 15);
+        delay();
+        counter--;
     }
-
-    /* while (1) */
-    /* { */
-    /*     *gpio_odr |= (1 << 15); */
-    /*     delay(); */
-    /*     *gpio_odr &= ~(1 << 15); */
-    /*     delay(); */
-    /* } */
 }
 
 void delay(void)
 {
-    for (int i=0; i < 500000; i++);
+    for (int i=0; i < 200000; i++);
 }
 

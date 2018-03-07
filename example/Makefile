@@ -11,7 +11,7 @@ $(BINARY).bin: $(BINARY).elf
 	arm-none-eabi-objcopy -O binary $^ $@
 
 $(BINARY).elf: $(OBJECTS)
-	arm-none-eabi-gcc -Wl,--gc-sections -nostdlib -L$(STM32F1LIB_DIR) -L$(STM32F1LIB_LINKER_DIR) -lstm32f1 -T$(STM32F1LIB_LINKER_DIR)/$(LINKER_SCRIPT) $^ -o $@
+	arm-none-eabi-gcc -Wl,--gc-sections -L$(STM32F1LIB_DIR) -L$(STM32F1LIB_LINKER_DIR) -lstm32f1 -T$(STM32F1LIB_LINKER_DIR)/$(LINKER_SCRIPT) $^ -o $@
 
 %.o: %.c
 	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -c -nostdlib -I$(STM32F1LIB_INCLUDE_DIR) $^ -o $@
