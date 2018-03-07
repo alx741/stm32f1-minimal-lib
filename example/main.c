@@ -1,6 +1,9 @@
 #include "boot.h"
+#include <stdbool.h>
 
 void delay(void);
+
+bool state = false;
 
 int main(void)
 {
@@ -15,13 +18,18 @@ int main(void)
     *gpio_crh &= ~(1 << 30);
     *gpio_crh &= ~(1 << 31);
 
-    while (1)
+    if (state)
     {
         *gpio_odr |= (1 << 15);
-        delay();
-        *gpio_odr &= ~(1 << 15);
-        delay();
     }
+
+    /* while (1) */
+    /* { */
+    /*     *gpio_odr |= (1 << 15); */
+    /*     delay(); */
+    /*     *gpio_odr &= ~(1 << 15); */
+    /*     delay(); */
+    /* } */
 }
 
 void delay(void)
