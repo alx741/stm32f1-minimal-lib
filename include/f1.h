@@ -2,50 +2,6 @@
 #include <stdint.h>
 
 /* ----------------------------------------------
- *   IRQs vector table
- * ----------------------------------------------
- */
-typedef struct
-{
-  // IRQ 0 - 33                    IRQ  34 - 68
-    void*  WWDG;                  void*  I2C2_ER;
-    void*  PVD;                   void*  SPI1;
-    void*  TAMPER;                void*  SPI2;
-    void*  RTC;                   void*  USART1;
-    void*  FLASH;                 void*  USART2;
-    void*  RCC;                   void*  USART3;
-    void*  EXTI0;                 void*  EXTI15_10;
-    void*  EXTI1;                 void*  RTCALARM;
-    void*  EXTI2;                 void*  USBWAKEUP;
-    void*  EXTI3;                 void*  TIM8_BRK;
-    void*  EXTI4;                 void*  TIM8_UP;
-    void*  DMA1_CHANNEL1;         void*  TIM8_TRG_COM;
-    void*  DMA1_CHANNEL2;         void*  TIM8_CC;
-    void*  DMA1_CHANNEL3;         void*  ADC3;
-    void*  DMA1_CHANNEL4;         void*  FSMC;
-    void*  DMA1_CHANNEL5;         void*  SDIO;
-    void*  DMA1_CHANNEL6;         void*  TIM5;
-    void*  DMA1_CHANNEL7;         void*  SPI3;
-    void*  ADC1_2;                void*  UART4;
-    void*  USB_HP_CAN_TX;         void*  UART5;
-    void*  USB_LP_CAN_RX0;        void*  TIM6;
-    void*  CAN_RX1;               void*  TIM7;
-    void*  CAN_SCE;               void*  DMA2_CHANNEL1;
-    void*  EXTI9_5;               void*  DMA2_CHANNEL2;
-    void*  TIM1_BRK;              void*  DMA2_CHANNEL3;
-    void*  TIM1_UP;               void*  DMA2_CHANNEL4_5;
-    void*  TIM1_TRG_COM;          void*  DMA2_CHANNEL5;
-    void*  TIM1_CC;               void*  ETH;
-    void*  TIM2;                  void*  ETH_WKUP;
-    void*  TIM3;                  void*  CAN2_TX;
-    void*  TIM4;                  void*  CAN2_RX0;
-    void*  I2C1_EV;               void*  CAN2_RX1;
-    void*  I2C1_ER;               void*  CAN2_SCE;
-    void*  I2C2_EV;               void*  OTG_FS;
-} IRQ_VECTOR_TABLE_t;
-
-
-/* ----------------------------------------------
  *   IRQ handlers
  * ----------------------------------------------
  */
@@ -155,3 +111,133 @@ void __attribute__ ((weak)) OTG_FS_ISR(void);
 #define _RCC             0x40021000
 #define _FLASH_INTERFACE 0x40022000
 #define _CRC             0x40023000
+
+/* --------------------------------------------------------------
+ *   General purpose and alternate function I/O (GPIO and AFIOs)
+ * --------------------------------------------------------------
+ */
+
+// Available modes (MODEy)
+#define    MODE_INPUT           0b00
+#define    MODE_OUTPUT_2MHZ     0b10
+#define    MODE_OUTPUT_10MHZ    0b01
+#define    MODE_OUTPUT_50MHZ    0b11
+
+// Available configurations (CNFy)
+#define   CNF_IN_ANALOG             0b00
+#define   CNF_IN_FLOATING           0b01
+#define   CNF_IN_PULL_UP_DOWN       0b10
+#define   CNF_OUT_PUSH_PULL         0b00
+#define   CNF_OUT_OPEN_DRAIN        0b01
+#define   CNF_ALTERNATE_PUSH_PULL   0b10
+#define   CNF_ALTERNATE_OPEN_DRAIN  0b11
+
+typedef struct
+{
+    union
+    {
+        uint32_t CRL;
+        struct
+        {
+            unsigned MODE0 : 2;
+            unsigned CNF0  : 2;
+            unsigned MODE1 : 2;
+            unsigned CNF1  : 2;
+            unsigned MODE2 : 2;
+            unsigned CNF2  : 2;
+            unsigned MODE3 : 2;
+            unsigned CNF3  : 2;
+            unsigned MODE4 : 2;
+            unsigned CNF4  : 2;
+            unsigned MODE5 : 2;
+            unsigned CNF5  : 2;
+            unsigned MODE6 : 2;
+            unsigned CNF6  : 2;
+            unsigned MODE7 : 2;
+            unsigned CNF7  : 2;
+        };
+    };
+
+    union
+    {
+        uint32_t CRH;
+        struct
+        {
+            unsigned MODE8  : 2;
+            unsigned CNF8   : 2;
+            unsigned MODE9  : 2;
+            unsigned CNF9   : 2;
+            unsigned MODE10 : 2;
+            unsigned CNF10  : 2;
+            unsigned MODE11 : 2;
+            unsigned CNF11  : 2;
+            unsigned MODE12 : 2;
+            unsigned CNF12  : 2;
+            unsigned MODE13 : 2;
+            unsigned CNF13  : 2;
+            unsigned MODE14 : 2;
+            unsigned CNF14  : 2;
+            unsigned MODE15 : 2;
+            unsigned CNF15  : 2;
+        };
+    };
+
+    union
+    {
+        uint32_t IDR;
+        struct
+        {
+            unsigned IDR0  : 1;
+            unsigned IDR1  : 1;
+            unsigned IDR2  : 1;
+            unsigned IDR3  : 1;
+            unsigned IDR4  : 1;
+            unsigned IDR5  : 1;
+            unsigned IDR6  : 1;
+            unsigned IDR7  : 1;
+            unsigned IDR8  : 1;
+            unsigned IDR9  : 1;
+            unsigned IDR10 : 1;
+            unsigned IDR11 : 1;
+            unsigned IDR12 : 1;
+            unsigned IDR13 : 1;
+            unsigned IDR14 : 1;
+            unsigned IDR15 : 1;
+            unsigned       : 16;
+        };
+    };
+
+    union
+    {
+        uint32_t ODR;
+        struct
+        {
+            unsigned ODR0  : 1;
+            unsigned ODR1  : 1;
+            unsigned ODR2  : 1;
+            unsigned ODR3  : 1;
+            unsigned ODR4  : 1;
+            unsigned ODR5  : 1;
+            unsigned ODR6  : 1;
+            unsigned ODR7  : 1;
+            unsigned ODR8  : 1;
+            unsigned ODR9  : 1;
+            unsigned ODR10 : 1;
+            unsigned ODR11 : 1;
+            unsigned ODR12 : 1;
+            unsigned ODR13 : 1;
+            unsigned ODR14 : 1;
+            unsigned ODR15 : 1;
+            unsigned       : 16;
+        };
+    };
+
+    uint32_t BSRR;
+    uint32_t BRR;
+} GPIO_PORT_t;
+
+static volatile GPIO_PORT_t* const PORTA = (void*) _PORTA;
+static volatile GPIO_PORT_t* const PORTB = (void*) _PORTB;
+static volatile GPIO_PORT_t* const PORTC = (void*) _PORTC;
+static volatile GPIO_PORT_t* const PORTD = (void*) _PORTD;
+static volatile GPIO_PORT_t* const PORTE = (void*) _PORTE;
