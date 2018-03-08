@@ -1,6 +1,10 @@
 #pragma once
+#include <stdint.h>
 
-/* IRQs vector table */
+/* ----------------------------------------------
+ *   IRQs vector table
+ * ----------------------------------------------
+ */
 typedef struct
 {
   // IRQ 0 - 33                    IRQ  34 - 68
@@ -40,7 +44,10 @@ typedef struct
     void*  I2C2_EV;               void*  OTG_FS;
 } IRQ_VECTOR_TABLE_t;
 
-/* IRQ handlers
+
+/* ----------------------------------------------
+ *   IRQ handlers
+ * ----------------------------------------------
  */
 void __attribute__ ((weak)) WWDG_ISR(void);
 void __attribute__ ((weak)) PVD_ISR(void);
@@ -110,3 +117,41 @@ void __attribute__ ((weak)) CAN2_RX0_ISR(void);
 void __attribute__ ((weak)) CAN2_RX1_ISR(void);
 void __attribute__ ((weak)) CAN2_SCE_ISR(void);
 void __attribute__ ((weak)) OTG_FS_ISR(void);
+
+
+/* ----------------------------------------------
+ *   APB Memory Map
+ * ----------------------------------------------
+ */
+#define _TIM2            0x40000000
+#define _TIM3            0x40004000
+#define _TIM4            0x40008000
+#define _RTC             0x40002800
+#define _WWDG            0x40002C00
+#define _IWDG            0x40003000
+#define _SPI2            0x40003800
+#define _USART2          0x40004400
+#define _USART3          0x40004800
+#define _I2C1            0x40005400
+#define _I2C2            0x40005800
+#define _USB_REGISTERS   0x40005C00
+#define _USB_CAN_SRAM    0x40006000
+#define _BXCAN           0x40006400
+#define _BKP             0x40006C00
+#define _PWR             0x40007000
+#define _AFIO            0x40010000
+#define _EXTI            0x40010400
+#define _PORTA           0x40010800
+#define _PORTB           0x40010C00
+#define _PORTC           0x40011000
+#define _PORTD           0x40011400
+#define _PORTE           0x40011800
+#define _ADC1            0x40012400
+#define _ADC2            0x40012800
+#define _TIM1            0x40012C00
+#define _CPI1            0x40013000
+#define _USART1          0x40013800
+#define _DMA             0x40020000
+#define _RCC             0x40021000
+#define _FLASH_INTERFACE 0x40022000
+#define _CRC             0x40023000
