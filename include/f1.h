@@ -81,6 +81,242 @@ _weak_     I2C2_EV_ISR(void),                  OTG_FS_ISR(void);
 
 
 /* --------------------------------------------------------------
+ *   Reset and Clock Control (RCC)
+ * --------------------------------------------------------------
+ */
+
+typedef struct
+{
+    unsigned HSION   : 1;
+    unsigned HSIRDY  : 1;
+    unsigned         : 1;
+    unsigned HSITRIM : 5;
+    unsigned HSICAL  : 8;
+    unsigned HSEON   : 1;
+    unsigned HSERDY  : 1;
+    unsigned HSEBYP  : 1;
+    unsigned CSSON   : 1;
+    unsigned         : 4;
+    unsigned PLLON   : 1;
+    unsigned PLLRDY  : 1;
+    unsigned         : 6;
+} RCC_CR_t;
+
+typedef struct
+{
+    unsigned SW       : 2;
+    unsigned SWS      : 2;
+    unsigned HPRE     : 4;
+    unsigned PPRE1    : 3;
+    unsigned PPRE2    : 3;
+    unsigned ADCPRE   : 2;
+    unsigned PLLSRC   : 1;
+    unsigned PLLXTPRE : 1;
+    unsigned PLLMUL   : 4;
+    unsigned USBPRE   : 1;
+    unsigned          : 1;
+    unsigned MCO      : 3;
+    unsigned          : 5;
+} RCC_CFGR_t;
+
+typedef struct
+{
+    unsigned LSIRDYF  : 1;
+    unsigned LSERDYF  : 1;
+    unsigned HSIRDYF  : 1;
+    unsigned HSERDYF  : 1;
+    unsigned PLLRDYF  : 1;
+    unsigned          : 2;
+    unsigned CSSF     : 1;
+    unsigned LSIRDYIE : 1;
+    unsigned LSERDYIE : 1;
+    unsigned HSIRDYIE : 1;
+    unsigned HSERDYIE : 1;
+    unsigned PLLRDYIE : 1;
+    unsigned          : 3;
+    unsigned LSIRDYC  : 1;
+    unsigned LSERDYC  : 1;
+    unsigned HSIRDYC  : 1;
+    unsigned HSERDYC  : 1;
+    unsigned PLLRDYC  : 1;
+    unsigned          : 2;
+    unsigned CSSC     : 1;
+    unsigned          : 8;
+} RCC_CIR_t;
+
+typedef struct
+{
+    unsigned AFIORST   : 1;
+    unsigned           : 1;
+    unsigned IOPARST   : 1;
+    unsigned IOPBRST   : 1;
+    unsigned IOPCRST   : 1;
+    unsigned IOPDRST   : 1;
+    unsigned IOPERST   : 1;
+    unsigned IOPFRST   : 1;
+    unsigned IOPGRST   : 1;
+    unsigned ADC1RST   : 1;
+    unsigned ADC2RST   : 1;
+    unsigned TIM1RST   : 1;
+    unsigned SPI1RST   : 1;
+    unsigned TIM8RST   : 1;
+    unsigned USART1RST : 1;
+    unsigned ADC3RST   : 1;
+    unsigned           : 3;
+    unsigned TIM9RST   : 1;
+    unsigned TIM10RST  : 1;
+    unsigned TIM11RST  : 1;
+    unsigned           : 10;
+} RCC_APB2RSTR_t;
+
+typedef struct
+{
+    unsigned TIM2RST   : 1;
+    unsigned TIM3RST   : 1;
+    unsigned TIM4RST   : 1;
+    unsigned TIM5RST   : 1;
+    unsigned TIM6RST   : 1;
+    unsigned TIM7RST   : 1;
+    unsigned TIM12RST  : 1;
+    unsigned TIM13RST  : 1;
+    unsigned TIM14RST  : 1;
+    unsigned           : 2;
+    unsigned WWDGRST   : 1;
+    unsigned           : 2;
+    unsigned SPI2RST   : 1;
+    unsigned SPI3RST   : 1;
+    unsigned           : 1;
+    unsigned USART2RST : 1;
+    unsigned USART3RST : 1;
+    unsigned USART4RST : 1;
+    unsigned USART5RST : 1;
+    unsigned I2C1RST   : 1;
+    unsigned I2C2RST   : 1;
+    unsigned USBRST    : 1;
+    unsigned           : 1;
+    unsigned CANRST    : 1;
+    unsigned           : 1;
+    unsigned BKPRST    : 1;
+    unsigned PWRRST    : 1;
+    unsigned DACRST    : 1;
+    unsigned           : 2;
+} RCC_APB1RSTR_t;
+
+typedef struct
+{
+    unsigned DMA1EN  : 1;
+    unsigned DMA2EN  : 1;
+    unsigned SRAMEN  : 1;
+    unsigned         : 1;
+    unsigned FLITFEN : 1;
+    unsigned         : 1;
+    unsigned CRCEN   : 1;
+    unsigned         : 1;
+    unsigned FSMCEN  : 1;
+    unsigned         : 1;
+    unsigned SDIOEN  : 1;
+    unsigned         : 21;
+} RCC_AHBENR_t;
+
+typedef struct
+{
+    unsigned AFIOEN   : 1;
+    unsigned          : 1;
+    unsigned IOPAEN   : 1;
+    unsigned IOPBEN   : 1;
+    unsigned IOPCEN   : 1;
+    unsigned IOPDEN   : 1;
+    unsigned IOPEEN   : 1;
+    unsigned IOPFEN   : 1;
+    unsigned IOPGEN   : 1;
+    unsigned ADC1EN   : 1;
+    unsigned ADC2EN   : 1;
+    unsigned TIM1EN   : 1;
+    unsigned SPI1EN   : 1;
+    unsigned TIM8EN   : 1;
+    unsigned USART1EN : 1;
+    unsigned ADC3EN   : 1;
+    unsigned          : 3;
+    unsigned TIM9EN   : 1;
+    unsigned TIM10EN  : 1;
+    unsigned TIM11EN  : 1;
+    unsigned          : 10;
+} RCC_APB2ENR_t;
+
+typedef struct
+{
+    unsigned TIM2EN    : 1;
+    unsigned TIM3EN    : 1;
+    unsigned TIM4EN    : 1;
+    unsigned TIM5EN    : 1;
+    unsigned TIM6EN    : 1;
+    unsigned TIM7EN    : 1;
+    unsigned TIM12EN   : 1;
+    unsigned TIM13EN   : 1;
+    unsigned TIM14EN   : 1;
+    unsigned           : 2;
+    unsigned WWDGEN    : 1;
+    unsigned           : 2;
+    unsigned SPI2EN    : 1;
+    unsigned SPI3EN    : 1;
+    unsigned           : 1;
+    unsigned USART2EN  : 1;
+    unsigned USART3EN  : 1;
+    unsigned USART4EN  : 1;
+    unsigned USART5EN  : 1;
+    unsigned I2C1EN    : 1;
+    unsigned I2C2EN    : 1;
+    unsigned USBEN     : 1;
+    unsigned           : 1;
+    unsigned CANEN     : 1;
+    unsigned           : 1;
+    unsigned BKPEN     : 1;
+    unsigned PWREN     : 1;
+    unsigned DACEN     : 1;
+    unsigned           : 2;
+} RCC_APB1ENR_t;
+
+typedef struct
+{
+    unsigned LSEON  : 1;
+    unsigned LSERDY : 1;
+    unsigned LSEBYP : 1;
+    unsigned        : 5;
+    unsigned RTCSEL : 2;
+    unsigned        : 5;
+    unsigned RTCEN  : 1;
+    unsigned BDRST  : 1;
+    unsigned        : 15;
+} RCC_BDCR_t;
+
+typedef struct
+{
+    unsigned LSION    : 1;
+    unsigned LSIRDY   : 1;
+    unsigned          : 22;
+    unsigned RMVF     : 1;
+    unsigned          : 1;
+    unsigned PINRSTF  : 1;
+    unsigned PORRSTF  : 1;
+    unsigned SFTRSTF  : 1;
+    unsigned IWDGRSTF : 1;
+    unsigned WWDGRSTF : 1;
+    unsigned LPWRRSTF : 1;
+} RCC_CSR_t;
+
+static volatile RCC_CR_t*       const RCC_CR       = (void*) _RCC + 0x00;
+static volatile RCC_CFGR_t*     const RCC_CFGR     = (void*) _RCC + 0x04;
+static volatile RCC_CIR_t*      const RCC_CIR      = (void*) _RCC + 0x08;
+static volatile RCC_APB2RSTR_t* const RCC_APB2RSTR = (void*) _RCC + 0x0C;
+static volatile RCC_APB1RSTR_t* const RCC_APB1RSTR = (void*) _RCC + 0x10;
+static volatile RCC_AHBENR_t*   const RCC_AHBENR   = (void*) _RCC + 0x14;
+static volatile RCC_APB2ENR_t*  const RCC_APB2ENR  = (void*) _RCC + 0x18;
+static volatile RCC_APB1ENR_t*  const RCC_APB1ENR  = (void*) _RCC + 0x1C;
+static volatile RCC_BDCR_t*     const RCC_BDCR     = (void*) _RCC + 0x20;
+static volatile RCC_CSR_t*      const RCC_CSR      = (void*) _RCC + 0x24;
+
+
+/* --------------------------------------------------------------
  *   General purpose and alternate function I/O (GPIO and AFIOs)
  * --------------------------------------------------------------
  */
