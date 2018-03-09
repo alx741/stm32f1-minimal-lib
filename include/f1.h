@@ -234,6 +234,32 @@ typedef struct
 
     uint32_t BSRR;
     uint32_t BRR;
+
+    union
+    {
+        uint32_t LCKR;
+        struct
+        {
+            unsigned LCK0  : 1;
+            unsigned LCK1  : 1;
+            unsigned LCK2  : 1;
+            unsigned LCK3  : 1;
+            unsigned LCK4  : 1;
+            unsigned LCK5  : 1;
+            unsigned LCK6  : 1;
+            unsigned LCK7  : 1;
+            unsigned LCK8  : 1;
+            unsigned LCK9  : 1;
+            unsigned LCK10 : 1;
+            unsigned LCK11 : 1;
+            unsigned LCK12 : 1;
+            unsigned LCK13 : 1;
+            unsigned LCK14 : 1;
+            unsigned LCK15 : 1;
+            unsigned LCKK  : 1;
+            unsigned       : 15;
+        };
+    };
 } GPIO_PORT_t;
 
 static volatile GPIO_PORT_t* const PORTA = (void*) _PORTA;
