@@ -471,3 +471,104 @@ static volatile GPIO_PORT_t* const PORTB = (void*) _PORTB;
 static volatile GPIO_PORT_t* const PORTC = (void*) _PORTC;
 static volatile GPIO_PORT_t* const PORTD = (void*) _PORTD;
 static volatile GPIO_PORT_t* const PORTE = (void*) _PORTE;
+
+
+/* ------------------------------------------------------------------
+ *   Universal synchronous asynchronous receiver transmitter (USART)
+ * ------------------------------------------------------------------
+ */
+
+typedef struct
+{
+    unsigned PE   : 1;
+    unsigned FE   : 1;
+    unsigned NE   : 1;
+    unsigned ORE  : 1;
+    unsigned IDLE : 1;
+    unsigned RXNE : 1;
+    unsigned TC   : 1;
+    unsigned TXE  : 1;
+    unsigned LBD  : 1;
+    unsigned CTS  : 1;
+    unsigned      : 22;
+} USART_SR_t;
+
+typedef struct
+{
+    unsigned DR : 9;
+    unsigned    : 23;
+} USART_DR_t;
+
+typedef struct
+{
+    unsigned DIV_FRACTION : 4;
+    unsigned DIV_MANTISSA : 12;
+    unsigned              : 16;
+} USART_BRR_t;
+
+typedef struct
+{
+    unsigned SBK    : 1;
+    unsigned RWU    : 1;
+    unsigned RE     : 1;
+    unsigned TE     : 1;
+    unsigned IDLEIE : 1;
+    unsigned RXNEIE : 1;
+    unsigned TCIE   : 1;
+    unsigned TXEIE  : 1;
+    unsigned PEIE   : 1;
+    unsigned PS     : 1;
+    unsigned PCE    : 1;
+    unsigned WAKE   : 1;
+    unsigned M      : 1;
+    unsigned UE     : 1;
+    unsigned        : 2;
+    unsigned        : 16;
+} USART_CR1_t;
+
+typedef struct
+{
+    unsigned ADD   : 4;
+    unsigned       : 1;
+    unsigned LBDL  : 1;
+    unsigned LBDIE : 1;
+    unsigned       : 1;
+    unsigned LBCL  : 1;
+    unsigned CPHA  : 1;
+    unsigned CPOL  : 1;
+    unsigned CKLEN : 1;
+    unsigned STOP  : 2;
+    unsigned LINEN : 1;
+    unsigned       : 17;
+} USART_CR2_t;
+
+typedef struct
+{
+    unsigned EIE   : 1;
+    unsigned IREN  : 1;
+    unsigned IRLP  : 1;
+    unsigned HDSEL : 1;
+    unsigned NACK  : 1;
+    unsigned SCEN  : 1;
+    unsigned DMAR  : 1;
+    unsigned DMAT  : 1;
+    unsigned RTSE  : 1;
+    unsigned CTSE  : 1;
+    unsigned CTSIE : 1;
+    unsigned       : 21;
+} USART_CR3_t;
+
+typedef struct
+{
+    unsigned PSC : 8;
+    unsigned GT  : 8;
+    unsigned     : 16;
+} USART_GTPR_t;
+
+static volatile USART_SR_t*   const USART1_SR   = (void*) _USART1 + 0x00;
+static volatile USART_DR_t*   const USART1_DR   = (void*) _USART1 + 0x04;
+static volatile USART_BRR_t*  const USART1_BRR  = (void*) _USART1 + 0x08;
+static volatile USART_CR1_t*  const USART1_CR1  = (void*) _USART1 + 0x0C;
+static volatile USART_CR2_t*  const USART1_CR2  = (void*) _USART1 + 0x10;
+static volatile USART_CR3_t*  const USART1_CR3  = (void*) _USART1 + 0x14;
+static volatile USART_GTPR_t* const USART3_GTPR = (void*) _USART1 + 0x18;

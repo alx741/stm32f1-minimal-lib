@@ -4,11 +4,22 @@
 void delay(void);
 int counter = 5;
 
+void uart_init(void)
+{
+    RCC_APB2ENR->USART1EN = true; // enable clk
+    USART1_CR1->UE = true; // usart enable
+    USART1_CR1->M = false; // 8bit word
+
+    USART1_CR1->TE = true; // enable transmitter
+    USART1_CR1->RE = true; // enable receiver
+}
+
 int main(void)
 {
     RCC_APB2ENR->IOPCEN = true;
     PORTC->MODE15 = 0b10;
     PORTC->CNF15 = 0b00;
+
 
     while (counter != 0)
     {
