@@ -81,6 +81,23 @@ _weak_     I2C2_EV_ISR(void),                  OTG_FS_ISR(void);
 
 
 /* --------------------------------------------------------------
+ *   Embedded Flash Memory
+ * --------------------------------------------------------------
+ */
+
+typedef struct
+{
+    unsigned LATENCY : 3;
+    unsigned HLFCYA  : 1;
+    unsigned PRFTBE  : 1;
+    unsigned PRFTBS  : 1;
+    unsigned         : 26;
+} FLASH_ACR_t;
+
+static volatile FLASH_ACR_t*  const FLASH_ACR = (void*) _FLASH_INTERFACE;
+
+
+/* --------------------------------------------------------------
  *   Reset and Clock Control (RCC)
  * --------------------------------------------------------------
  */
