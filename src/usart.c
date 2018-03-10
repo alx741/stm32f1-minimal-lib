@@ -1,0 +1,38 @@
+#include "f1.h"
+#include "usart.h"
+#include <stdbool.h>
+
+void usart_init_72mhz_9600baud(void)
+{
+    // USART1 PORTA pins
+    RCC_APB2ENR->IOPAEN = true;
+    PORTA->MODE9 = MODE_OUTPUT_50MHZ;
+    PORTA->CNF9 = CNF_ALTERNATE_PUSH_PULL;
+    PORTA->MODE10 = MODE_INPUT;
+    PORTA->CNF10 = CNF_IN_PULL_UP_DOWN;
+
+    RCC_APB2ENR->USART1EN = true;
+    USART1_CR1->UE = true;
+    USART1_CR1->M = false; // 8bit word
+
+    // 9600 Bauds with 72Mhz Master clock
+    // Div = 72000000/(16 * 9600) = 468.75
+    USART1_BRR->DIV_FRACTION = 12; // 16*0.75 = 12
+    USART1_BRR->DIV_MANTISSA = 468;
+
+    USART1_CR1->RE = true;
+    USART1_CR1->TE = true;
+}
+
+int putchar(int c)
+{
+    USART1_DR->DR = c;
+    while (! USART1_SR->TXE);
+    return c;
+}
+
+int getchar(void)
+{
+    while (! USART1_SR->RXNE);
+    return USART1_DR->DR;
+}
