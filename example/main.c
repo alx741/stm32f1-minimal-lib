@@ -1,38 +1,48 @@
-#include "f1.h"
+#include <f1.h>
+#include <rcc.h>
+#include <usart.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 void delay(void);
-int counter = 5;
-
-void uart_init(void)
-{
-    RCC_APB2ENR->USART1EN = true; // enable clk
-    USART1_CR1->UE = true; // usart enable
-    USART1_CR1->M = false; // 8bit word
-
-    USART1_CR1->TE = true; // enable transmitter
-    USART1_CR1->RE = true; // enable receiver
-}
 
 int main(void)
 {
+    rcc_setup_in_8mhz_hse_out_72mhz();
+
     RCC_APB2ENR->IOPCEN = true;
-    PORTC->MODE15 = 0b10;
-    PORTC->CNF15 = 0b00;
+    PORTC->MODE15 = MODE_OUTPUT_50MHZ;
+    PORTC->CNF15 = CNF_OUT_PUSH_PULL;
 
+    usart_init_72mhz_9600baud();
 
-    while (counter != 0)
+    int somechar;
+    int a = 1234;
+    float b = 234.23;
+    while (true)
     {
-        PORTC->ODR15 = true;
-        delay();
-        PORTC->ODR15 = false;
-        delay();
-        counter--;
+        /* somechar = getchar(); */
+        /* if (somechar == 'a') */
+        /* { */
+        /*     PORTC->ODR15 = true; */
+        /*     putchar('x'); */
+        /* } */
+        /* else */
+        /* { */
+        /*     PORTC->ODR15 = false; */
+        /* } */
+
+        /* PORTC->ODR15 = true; */
+        /* delay(); */
+        /* PORTC->ODR15 = false; */
+        /* delay(); */
+        /* putchar('x'); */
+        printf("a = %d, b = %f\r\n", a, b);
     }
+
 }
 
 void delay(void)
 {
-    for (int i=0; i < 200000; i++);
+    for (int i = 0; i < 900000; i++);
 }
-
