@@ -5,7 +5,7 @@
  *   IRQ handlers
  * ----------------------------------------------
  */
-#define _weak_  void __attribute__ ((weak))
+#define _weak_  void __attribute__ ((weak, isr))
 _weak_     WWDG_ISR(void),                     I2C2_ER_ISR(void);
 _weak_     PVD_ISR(void),                      SPI1_ISR(void);
 _weak_     TAMPER_ISR(void),                   SPI2_ISR(void);

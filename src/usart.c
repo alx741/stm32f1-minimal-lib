@@ -1,6 +1,7 @@
 #include "f1.h"
 #include "usart.h"
 #include <stdbool.h>
+#include <errno.h>
 
 void usart_init_72mhz_9600baud(void)
 {
@@ -24,15 +25,20 @@ void usart_init_72mhz_9600baud(void)
     USART1_CR1->TE = true;
 }
 
-int putchar(int c)
+int _write(int file, char *ptr, int len)
 {
-    USART1_DR->DR = c;
-    while (! USART1_SR->TXE);
-    return c;
-}
+    int i;
+	if (file == 1)
+    {
+		for (i = 0; i<len; i++)
+        {
+            USART1_DR->DR = ptr[i];
+            while (! USART1_SR->TXE);
+        }
+        PORTC->ODR15 = true;
+		return i;
+	}
 
-int getchar(void)
-{
-    while (! USART1_SR->RXNE);
-    return USART1_DR->DR;
+	errno = EIO;
+	return -1;
 }

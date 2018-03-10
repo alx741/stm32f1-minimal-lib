@@ -1,5 +1,6 @@
 #include "boot.h"
 #include "f1.h"
+#include "syscalls.c"
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
