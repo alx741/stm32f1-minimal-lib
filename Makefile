@@ -1,4 +1,4 @@
-SRC_DIR = ./src
+SRC_DIR = ./lib
 INC_DIR = ./include
 OBJECTS=$(foreach c_file, $(wildcard $(SRC_DIR)/*.c), $(c_file:.c=.o))
 
