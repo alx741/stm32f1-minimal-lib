@@ -491,6 +491,110 @@ static volatile GPIO_PORT_t* const PORTE = (void*) _PORTE;
 
 
 /* ------------------------------------------------------------------
+ *   Inter-integrated circuit interface (I2C)
+ * ------------------------------------------------------------------
+ */
+
+typedef struct
+{
+    unsigned PE        : 1;
+    unsigned SMBUS     : 1;
+    unsigned           : 1;
+    unsigned SMBTYPE   : 1;
+    unsigned ENARP     : 1;
+    unsigned ENPEC     : 1;
+    unsigned ENGC      : 1;
+    unsigned NOSTRETCH : 1;
+    unsigned START     : 1;
+    unsigned STOP      : 1;
+    unsigned ACK       : 1;
+    unsigned POS       : 1;
+    unsigned PEC       : 1;
+    unsigned ALERT     : 1;
+    unsigned           : 1;
+    unsigned SWRST     : 1;
+} I2C_CR1_t;
+
+typedef struct
+{
+    unsigned FREQ    : 6;
+    unsigned         : 2;
+    unsigned ITERREN : 1;
+    unsigned ITEVTEN : 1;
+    unsigned ITBUFEN : 1;
+    unsigned DMAEN   : 1;
+    unsigned LAST    : 1;
+    unsigned         : 3;
+} I2C_CR2_t;
+
+typedef struct
+{
+    unsigned ADD0    : 1;
+    unsigned ADD     : 9;
+    unsigned         : 5;
+    unsigned ADDMODE : 1;
+} I2C_OAR1_t;
+
+typedef struct
+{
+    unsigned ENDUAL : 1;
+    unsigned ADD2   : 7;
+    unsigned        : 8;
+} I2C_OAR2_t;
+
+typedef struct
+{
+    unsigned SB       : 1;
+    unsigned ADDR     : 1;
+    unsigned BTF      : 1;
+    unsigned ADD10    : 1;
+    unsigned STOPF    : 1;
+    unsigned          : 1;
+    unsigned RXNE     : 1;
+    unsigned TXE      : 1;
+    unsigned BERR     : 1;
+    unsigned ARLO     : 1;
+    unsigned AF       : 1;
+    unsigned OVR      : 1;
+    unsigned PECERR   : 1;
+    unsigned          : 1;
+    unsigned TIMEOUT  : 1;
+    unsigned SMBALERT : 1;
+} I2C_SR1_t;
+
+typedef struct
+{
+    unsigned MSL        : 1;
+    unsigned BUSY       : 1;
+    unsigned TRA        : 1;
+    unsigned            : 1;
+    unsigned GENCALL    : 1;
+    unsigned SMBDEFAULT : 1;
+    unsigned SMBHOST    : 1;
+    unsigned DUALF      : 1;
+    unsigned PEC        : 8;
+} I2C_SR2_t;
+
+typedef struct
+{
+    unsigned CCR  : 12;
+    unsigned      : 2;
+    unsigned DUTY : 1;
+    unsigned FS   : 1;
+} I2C_CCR_t;
+
+static volatile I2C_CR1_t*  const I2C1_CR1   = (void*) _I2C1 + 0x00;
+static volatile I2C_CR2_t*  const I2C1_CR2   = (void*) _I2C1 + 0x04;
+static volatile I2C_OAR1_t* const I2C1_OAR1  = (void*) _I2C1 + 0x08;
+static volatile I2C_OAR2_t* const I2C1_OAR2  = (void*) _I2C1 + 0x0C;
+static volatile uint8_t*    const I2C1_DR    = (void*) _I2C1 + 0x10;
+static volatile I2C_SR1_t*  const I2C1_SR1   = (void*) _I2C1 + 0x14;
+static volatile I2C_SR2_t*  const I2C1_SR2   = (void*) _I2C1 + 0x18;
+static volatile I2C_CCR_t*  const I2C1_CCR   = (void*) _I2C1 + 0x1C;
+static volatile uint8_t*    const I2C1_TRISE = (void*) _I2C1 + 0x20;
+
+
+/* ------------------------------------------------------------------
  *   Universal synchronous asynchronous receiver transmitter (USART)
  * ------------------------------------------------------------------
  */
@@ -588,4 +692,4 @@ static volatile USART_BRR_t*  const USART1_BRR  = (void*) _USART1 + 0x08;
 static volatile USART_CR1_t*  const USART1_CR1  = (void*) _USART1 + 0x0C;
 static volatile USART_CR2_t*  const USART1_CR2  = (void*) _USART1 + 0x10;
 static volatile USART_CR3_t*  const USART1_CR3  = (void*) _USART1 + 0x14;
-static volatile USART_GTPR_t* const USART3_GTPR = (void*) _USART1 + 0x18;
+static volatile USART_GTPR_t* const USART1_GTPR = (void*) _USART1 + 0x18;

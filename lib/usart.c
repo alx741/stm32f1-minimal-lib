@@ -1,5 +1,5 @@
-#include "f1.h"
 #include "usart.h"
+#include "f1.h"
 #include <stdbool.h>
 #include <errno.h>
 
