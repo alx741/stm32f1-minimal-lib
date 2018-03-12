@@ -593,6 +593,16 @@ static volatile I2C_SR2_t*  const I2C1_SR2   = (void*) _I2C1 + 0x18;
 static volatile I2C_CCR_t*  const I2C1_CCR   = (void*) _I2C1 + 0x1C;
 static volatile uint8_t*    const I2C1_TRISE = (void*) _I2C1 + 0x20;
 
+static volatile I2C_CR1_t*  const I2C2_CR1   = (void*) _I2C2 + 0x00;
+static volatile I2C_CR2_t*  const I2C2_CR2   = (void*) _I2C2 + 0x04;
+static volatile I2C_OAR1_t* const I2C2_OAR1  = (void*) _I2C2 + 0x08;
+static volatile I2C_OAR2_t* const I2C2_OAR2  = (void*) _I2C2 + 0x0C;
+static volatile uint8_t*    const I2C2_DR    = (void*) _I2C2 + 0x10;
+static volatile I2C_SR1_t*  const I2C2_SR1   = (void*) _I2C2 + 0x14;
+static volatile I2C_SR2_t*  const I2C2_SR2   = (void*) _I2C2 + 0x18;
+static volatile I2C_CCR_t*  const I2C2_CCR   = (void*) _I2C2 + 0x1C;
+static volatile uint8_t*    const I2C2_TRISE = (void*) _I2C2 + 0x20;
+
 
 /* ------------------------------------------------------------------
  *   Universal synchronous asynchronous receiver transmitter (USART)
@@ -693,3 +703,19 @@ static volatile USART_CR1_t*  const USART1_CR1  = (void*) _USART1 + 0x0C;
 static volatile USART_CR2_t*  const USART1_CR2  = (void*) _USART1 + 0x10;
 static volatile USART_CR3_t*  const USART1_CR3  = (void*) _USART1 + 0x14;
 static volatile USART_GTPR_t* const USART1_GTPR = (void*) _USART1 + 0x18;
+
+static volatile USART_SR_t*   const USART2_SR   = (void*) _USART2 + 0x00;
+static volatile USART_DR_t*   const USART2_DR   = (void*) _USART2 + 0x04;
+static volatile USART_BRR_t*  const USART2_BRR  = (void*) _USART2 + 0x08;
+static volatile USART_CR1_t*  const USART2_CR1  = (void*) _USART2 + 0x0C;
+static volatile USART_CR2_t*  const USART2_CR2  = (void*) _USART2 + 0x10;
+static volatile USART_CR3_t*  const USART2_CR3  = (void*) _USART2 + 0x14;
+static volatile USART_GTPR_t* const USART2_GTPR = (void*) _USART2 + 0x18;
+
+static volatile USART_SR_t*   const USART3_SR   = (void*) _USART3 + 0x00;
+static volatile USART_DR_t*   const USART3_DR   = (void*) _USART3 + 0x04;
+static volatile USART_BRR_t*  const USART3_BRR  = (void*) _USART3 + 0x08;
+static volatile USART_CR1_t*  const USART3_CR1  = (void*) _USART3 + 0x0C;
+static volatile USART_CR2_t*  const USART3_CR2  = (void*) _USART3 + 0x10;
+static volatile USART_CR3_t*  const USART3_CR3  = (void*) _USART3 + 0x14;
+static volatile USART_GTPR_t* const USART3_GTPR = (void*) _USART3 + 0x18;
