@@ -14,32 +14,26 @@ int main(void)
     PORTC->MODE15 = MODE_OUTPUT_50MHZ;
     PORTC->CNF15 = CNF_OUT_PUSH_PULL;
 
+    PORTC->MODE14 = MODE_INPUT;
+    PORTC->CNF14 = CNF_IN_PULL_UP_DOWN;
+
     usart_init_72mhz_9600baud();
 
     int somechar;
-    int a = 1234;
-    float b = 234.23;
     while (true)
     {
-        /* somechar = getchar(); */
-        /* if (somechar == 'a') */
-        /* { */
-        /*     PORTC->ODR15 = true; */
-        /*     putchar('x'); */
-        /* } */
-        /* else */
-        /* { */
-        /*     PORTC->ODR15 = false; */
-        /* } */
-
-        /* PORTC->ODR15 = true; */
-        /* delay(); */
-        /* PORTC->ODR15 = false; */
-        /* delay(); */
-        /* putchar('x'); */
-        printf("a = %d, b = %f\r\n", a, b);
+        somechar = getchar();
+        if (somechar == 'o')
+        {
+            PORTC->ODR15 = true;
+            printf("on\r\n");
+        }
+        else
+        {
+            PORTC->ODR15 = false;
+            printf("off\r\n");
+        }
     }
-
 }
 
 void delay(void)
