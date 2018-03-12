@@ -583,15 +583,15 @@ typedef struct
     unsigned FS   : 1;
 } I2C_CCR_t;
 
-static volatile I2C_CR1_t*  const I2C1_CR1   = (void*) _I2C1 + 0x00;
-static volatile I2C_CR2_t*  const I2C1_CR2   = (void*) _I2C1 + 0x04;
-static volatile I2C_OAR1_t* const I2C1_OAR1  = (void*) _I2C1 + 0x08;
-static volatile I2C_OAR2_t* const I2C1_OAR2  = (void*) _I2C1 + 0x0C;
-static volatile uint8_t*    const I2C1_DR    = (void*) _I2C1 + 0x10;
-static volatile I2C_SR1_t*  const I2C1_SR1   = (void*) _I2C1 + 0x14;
-static volatile I2C_SR2_t*  const I2C1_SR2   = (void*) _I2C1 + 0x18;
-static volatile I2C_CCR_t*  const I2C1_CCR   = (void*) _I2C1 + 0x1C;
-static volatile uint8_t*    const I2C1_TRISE = (void*) _I2C1 + 0x20;
+static volatile I2C_CR1_t*  const    I2C1_CR1   = (void*) _I2C1 + 0x00;
+static volatile I2C_CR2_t*  const    I2C1_CR2   = (void*) _I2C1 + 0x04;
+static volatile I2C_OAR1_t* const    I2C1_OAR1  = (void*) _I2C1 + 0x08;
+static volatile I2C_OAR2_t* const    I2C1_OAR2  = (void*) _I2C1 + 0x0C;
+static volatile uint8_t*    const    I2C1_DR    = (void*) _I2C1 + 0x10;
+static volatile I2C_SR1_t*  const    I2C1_SR1   = (void*) _I2C1 + 0x14;
+static volatile I2C_SR2_t*  const    I2C1_SR2   = (void*) _I2C1 + 0x18;
+static volatile I2C_CCR_t*  const    I2C1_CCR   = (void*) _I2C1 + 0x1C;
+static volatile uint8_t*    const    I2C1_TRISE = (void*) _I2C1 + 0x20;
 
 static volatile I2C_CR1_t*  const I2C2_CR1   = (void*) _I2C2 + 0x00;
 static volatile I2C_CR2_t*  const I2C2_CR2   = (void*) _I2C2 + 0x04;

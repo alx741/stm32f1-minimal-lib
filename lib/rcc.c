@@ -9,9 +9,9 @@ void rcc_setup_in_8mhz_hse_out_72mhz(void)
     while (! RCC_CR->HSERDY);
 
     // Configure buses clocks
-    RCC_CFGR->HPRE = 0x00;
-    RCC_CFGR->PPRE1 = 0b100;
-    RCC_CFGR->PPRE2 = 0b000;
+    RCC_CFGR->HPRE = 0x00;   // 72Mhz
+    RCC_CFGR->PPRE1 = 0b100; // 36Mhz
+    RCC_CFGR->PPRE2 = 0b000; // 72Mhz
     FLASH_ACR->LATENCY = 0b010;
 
     RCC_CFGR->PLLSRC = true;    // Use HSE as PLL input
