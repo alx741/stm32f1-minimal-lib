@@ -6,7 +6,7 @@
  * ----------------------------------------------
  */
 
-#define PWR_MGMT_1   0x6B
+#define PWR_MGMT_1_REG   0x6B
 
 typedef struct
 {
@@ -24,8 +24,8 @@ typedef struct
  * ----------------------------------------------
  */
 
-#define ACCEL          0x3B
-#define ACCEL_CONFIG   0x1C
+#define ACCEL_REG          0x3B
+#define ACCEL_CONFIG_REG   0x1C
 
 typedef struct
 {
@@ -48,8 +48,8 @@ typedef struct
  * ----------------------------------------------
  */
 
-#define GYRO          0x43
-#define GYRO_CONFIG   0x1B
+#define GYRO_REG          0x43
+#define GYRO_CONFIG_REG   0x1B
 
 typedef struct
 {
@@ -72,7 +72,7 @@ typedef struct
  * ----------------------------------------------
  */
 
-#define TEMP   0x41
+#define TEMP_REG   0x41
 typedef int16_t  TEMP_RAW_t;
 
 
@@ -81,5 +81,5 @@ typedef int16_t  TEMP_RAW_t;
  * ----------------------------------------------
  */
 
-#define WHO_AM_I   0x75
+#define WHO_AM_I_REG   0x75
 typedef uint8_t  WHO_AM_I_t;
