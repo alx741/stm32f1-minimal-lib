@@ -22,10 +22,20 @@ static const float g = 9.80665;
 
 static uint8_t MPU_ADDR = MPU_AD0_LOW_ADDR;
 
-/* float accel_AFS_factor(void); */
+float accel_AFS_factor(void);
 /* float gyro_FS_factor(void); */
-/* inline ACCEL_t accel_raw_to_g(const ACCEL_RAW_t *accel_raw); */
+ACCEL_t accel_raw_to_g(const ACCEL_RAW_t *accel_raw);
 /* void gyro_raw_to_dps(GYRO_RAW_t *gyro_raw, GYRO_t *gyro); */
+
+typedef struct
+{
+    uint8_t XH;
+    uint8_t XL;
+    uint8_t YH;
+    uint8_t YL;
+    uint8_t ZH;
+    uint8_t ZL;
+} DATA_POINT_t;
 
 inline void mpu6050_select_address(bool ad0)
 {
@@ -53,4 +63,54 @@ uint8_t mpu6050_read_register(uint8_t reg_address)
     i2c_transmit_bytes(MPU_ADDR, &reg_address, 1);
     i2c_start();
     i2c_receive_bytes(MPU_ADDR, &result, 1);
+    return result;
+}
+
+ACCEL_t mpu6050_read_accel(void)
+{
+    DATA_POINT_t data_point;
+    ACCEL_RAW_t accel_raw;
+    ACCEL_t accel;
+    i2c_start();
+    i2c_transmit_bytes(MPU_ADDR, (uint8_t[]){ACCEL}, 1);
+    i2c_start();
+    i2c_receive_bytes(MPU_ADDR, (void*) &data_point, 6);
+    accel_raw.X = data_point.XH << 8 | data_point.XL;
+    accel_raw.Y = data_point.YH << 8 | data_point.YL;
+    accel_raw.Z = data_point.ZH << 8 | data_point.ZL;
+    return accel_raw_to_g(&accel_raw);
+}
+
+ACCEL_t accel_raw_to_g(const ACCEL_RAW_t *accel_raw)
+{
+    ACCEL_t accel;
+    float scaling_factor = accel_AFS_factor();
+    accel.x = accel_raw->X / scaling_factor;
+    accel.y = accel_raw->Y / scaling_factor;
+    accel.z = accel_raw->Z / scaling_factor;
+    return accel;
+}
+
+float accel_AFS_factor(void)
+{
+    ACCEL_CONFIG_t accel_config;
+    uint8_t accel_config_byte = mpu6050_read_register(ACCEL_CONFIG);
+    memcpy(&accel_config, &accel_config_byte, 1);
+
+    switch (accel_config.AFS_SEL)
+    {
+        case 0:
+            return AFS_SEL_0;
+            break;
+        case 1:
+            return AFS_SEL_1;
+            break;
+        case 2:
+            return AFS_SEL_2;
+            break;
+        case 3:
+            return AFS_SEL_3;
+            break;
+    }
+    return 0;
 }

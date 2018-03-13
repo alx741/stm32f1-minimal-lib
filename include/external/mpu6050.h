@@ -29,9 +29,9 @@ typedef struct
 void mpu6050_select_address(bool ad0);
 void mpu6050_wake_up(void);
 uint8_t mpu6050_read_register(uint8_t reg);
-void mpu6050_read_accel(ACCEL_t *accel);
-void mpu6050_read_gyro(GYRO_t *gyro);
-float mpu6050_read_temp(void);
+ACCEL_t mpu6050_read_accel(void);
+/* void mpu6050_read_gyro(GYRO_t *gyro); */
+/* float mpu6050_read_temp(void); */
 
 /**
  * Convert Accelerometer measurements from gravities (g)
