@@ -93,9 +93,12 @@ void i2c_receive_bytes(uint8_t addr, uint8_t *dest, size_t n)
         dest[index++] = *I2C1_DR;
     }
 
-    // Receive second last byte
-    while (! I2C1_SR1->RXNE);
-    dest[index++] = *I2C1_DR;
+    if (index < (int) n-1)
+    {
+        // Receive second last byte
+        while (! I2C1_SR1->RXNE);
+        dest[index++] = *I2C1_DR;
+    }
 
     // Receive last byte and generate NACK
     dest[index] = i2c_receive_byte();
