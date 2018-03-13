@@ -27,7 +27,7 @@ static uint8_t MPU_ADDR = MPU_AD0_LOW_ADDR;
 /* inline ACCEL_t accel_raw_to_g(const ACCEL_RAW_t *accel_raw); */
 /* void gyro_raw_to_dps(GYRO_RAW_t *gyro_raw, GYRO_t *gyro); */
 
-void mpu6050_select_address(bool ad0)
+inline void mpu6050_select_address(bool ad0)
 {
     if (ad0)
     {
@@ -44,4 +44,13 @@ inline void mpu6050_wake_up(void)
     i2c_start();
     i2c_transmit_bytes(MPU_ADDR, (uint8_t[]){0x6B, 0x00}, 2);
     i2c_stop();
+}
+
+uint8_t mpu6050_read_register(uint8_t reg_address)
+{
+    uint8_t result;
+    i2c_start();
+    i2c_transmit_bytes(MPU_ADDR, &reg_address, 1);
+    i2c_start();
+    i2c_receive_bytes(MPU_ADDR, &result, 1);
 }
