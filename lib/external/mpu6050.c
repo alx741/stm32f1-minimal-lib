@@ -39,7 +39,7 @@ void mpu6050_select_address(bool ad0)
     }
 }
 
-void mpu6050_wake_up(void)
+inline void mpu6050_wake_up(void)
 {
     i2c_start();
     i2c_transmit_bytes(MPU_ADDR, (uint8_t[]){0x6B, 0x00}, 2);
