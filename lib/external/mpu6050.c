@@ -98,6 +98,18 @@ GYRO_t mpu6050_read_gyro(void)
     return gyro_raw_to_dps(&gyro_raw);
 }
 
+float mpu6050_read_temp(void)
+{
+    DATA_POINT_t data_point;
+    TEMP_RAW_t temp_raw;
+    i2c_start();
+    i2c_transmit_bytes(MPU_ADDR, (uint8_t[]){TEMP_REG}, 1);
+    i2c_start();
+    i2c_receive_bytes(MPU_ADDR, (void*) &data_point, 2);
+    temp_raw = data_point.XH << 8 | data_point.XL;
+    return (float) temp_raw/340 + 36.53;
+}
+
 ACCEL_t accel_raw_to_g(const ACCEL_RAW_t *accel_raw)
 {
     ACCEL_t accel;
