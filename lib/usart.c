@@ -35,7 +35,6 @@ int _write(int file, char *ptr, int len)
             USART1_DR->DR = ptr[i];
             while (! USART1_SR->TXE);
         }
-        PORTC->ODR15 = true;
 		return i;
 	}
 

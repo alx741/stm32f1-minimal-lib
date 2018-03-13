@@ -56,18 +56,47 @@ void i2c_slave_select(uint8_t addr, I2C_MODE mode)
     dummy = (uint8_t) I2C1_SR2->BUSY;
 }
 
-void i2c_transmit_byte(uint8_t addr, uint8_t data)
+void i2c_transmit_byte(uint8_t data)
 {
-    i2c_slave_select(addr, I2C_TRANSMIT);
     *I2C1_DR = data;
     while (! I2C1_SR1->TXE);
 }
 
-uint8_t i2c_receive_byte(uint8_t addr)
+uint8_t i2c_receive_byte(void)
 {
-    i2c_slave_select(addr, I2C_RECEIVE);
     I2C1_CR1->ACK = false;
     i2c_stop();
     while (! I2C1_SR1->RXNE);
     return *I2C1_DR;
+}
+
+void i2c_transmit_bytes(uint8_t addr, uint8_t *src, size_t n)
+{
+    int index = 0;
+    i2c_slave_select(addr, I2C_TRANSMIT);
+
+    while (index < (int) n)
+    {
+        i2c_transmit_byte(src[index++]);
+    }
+}
+
+void i2c_receive_bytes(uint8_t addr, uint8_t *dest, size_t n)
+{
+    int index = 0;
+    i2c_slave_select(addr, I2C_RECEIVE);
+
+    I2C1_CR1->ACK = true;
+    while (index < (int) n-2)
+    {
+        while (! I2C1_SR1->RXNE);
+        dest[index++] = *I2C1_DR;
+    }
+
+    // Receive second last byte
+    while (! I2C1_SR1->RXNE);
+    dest[index++] = *I2C1_DR;
+
+    // Receive last byte and generate NACK
+    dest[index] = i2c_receive_byte();
 }
