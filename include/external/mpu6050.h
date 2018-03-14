@@ -29,8 +29,12 @@ typedef struct
 void mpu6050_select_address(bool ad0);
 void mpu6050_wake_up(void);
 uint8_t mpu6050_read_register(uint8_t reg);
+
 ACCEL_t mpu6050_read_accel(void);
+
+void mpu6050_calibrate_gyro(void);
 GYRO_t mpu6050_read_gyro(void);
+
 float mpu6050_read_temp(void);
 
 /**
