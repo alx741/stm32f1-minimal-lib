@@ -491,6 +491,246 @@ static volatile GPIO_PORT_t* const PORTE = (void*) _PORTE;
 
 
 /* ------------------------------------------------------------------
+ *   General-purpose timers (TIM2 to TIM5)
+ * ------------------------------------------------------------------
+ */
+
+typedef struct
+{
+    unsigned CEN  : 1;
+    unsigned UDIS : 1;
+    unsigned URS  : 1;
+    unsigned OPM  : 1;
+    unsigned DIR  : 1;
+    unsigned CMS  : 2;
+    unsigned ARPE : 1;
+    unsigned CKD  : 2;
+    unsigned      : 6;
+} TIM_CR1_t;
+
+typedef struct
+{
+    unsigned      : 3;
+    unsigned CCDS : 1;
+    unsigned MMS  : 3;
+    unsigned TI1S : 1;
+    unsigned      : 8;
+} TIM_CR2_t;
+
+typedef struct
+{
+    unsigned SMS  : 3;
+    unsigned      : 1;
+    unsigned TS   : 3;
+    unsigned MSM  : 1;
+    unsigned ETF  : 4;
+    unsigned ETPS : 2;
+    unsigned ECE  : 1;
+    unsigned ETP  : 1;
+} TIM_SMCR_t;
+
+typedef struct
+{
+    unsigned UIE   : 1;
+    unsigned CC1IE : 1;
+    unsigned CC2IE : 1;
+    unsigned CC3IE : 1;
+    unsigned CC4IE : 1;
+    unsigned       : 1;
+    unsigned TIE   : 1;
+    unsigned       : 1;
+    unsigned UDE   : 1;
+    unsigned CC1DE : 1;
+    unsigned CC2DE : 1;
+    unsigned CC3DE : 1;
+    unsigned CC4DE : 1;
+    unsigned       : 1;
+    unsigned TDE   : 1;
+    unsigned       : 1;
+} TIM_DIER_t;
+
+typedef struct
+{
+    unsigned UIF   : 1;
+    unsigned CC1IF : 1;
+    unsigned CC2IF : 1;
+    unsigned CC3IF : 1;
+    unsigned CC4IF : 1;
+    unsigned       : 1;
+    unsigned TIF   : 1;
+    unsigned       : 2;
+    unsigned CC1OF : 1;
+    unsigned CC2OF : 1;
+    unsigned CC3OF : 1;
+    unsigned CC4OF : 1;
+    unsigned       : 3;
+} TIM_SR_t;
+
+typedef struct
+{
+    unsigned UG   : 1;
+    unsigned CC1G : 1;
+    unsigned CC2G : 1;
+    unsigned CC3G : 1;
+    unsigned CC4G : 1;
+    unsigned      : 1;
+    unsigned TG   : 1;
+    unsigned      : 9;
+} TIM_EGR_t;
+
+typedef struct
+{
+    unsigned CC1S : 2;
+    union
+    {
+        struct
+        {
+            unsigned OC1FE : 1;
+            unsigned OC1PE : 1;
+        };
+        struct
+        {
+            unsigned IC1PSC : 2;
+        };
+    };
+    union
+    {
+        struct
+        {
+            unsigned OC1M : 3;
+            unsigned OC1CE : 1;
+        };
+        struct
+        {
+            unsigned IC1F : 4;
+        };
+    };
+    unsigned CC2S : 2;
+    union
+    {
+        struct
+        {
+            unsigned OC2FE : 1;
+            unsigned OC2PE : 1;
+        };
+        struct
+        {
+            unsigned IC2PSC : 2;
+        };
+    };
+    union
+    {
+        struct
+        {
+            unsigned OC2M : 3;
+            unsigned OC2CE : 1;
+        };
+        struct
+        {
+            unsigned IC2F : 4;
+        };
+    };
+} TIM_CCMR1_t;
+
+typedef struct
+{
+    unsigned CC3S : 2;
+    union
+    {
+        struct
+        {
+            unsigned OC3FE : 1;
+            unsigned OC3PE : 1;
+        };
+        struct
+        {
+            unsigned IC3PSC : 2;
+        };
+    };
+    union
+    {
+        struct
+        {
+            unsigned OC3M : 3;
+            unsigned OC3CE : 1;
+        };
+        struct
+        {
+            unsigned IC3F : 4;
+        };
+    };
+    unsigned CC4S : 2;
+    union
+    {
+        struct
+        {
+            unsigned OC4FE : 1;
+            unsigned OC4PE : 1;
+        };
+        struct
+        {
+            unsigned IC4PSC : 2;
+        };
+    };
+    union
+    {
+        struct
+        {
+            unsigned OC4M : 3;
+            unsigned OC4CE : 1;
+        };
+        struct
+        {
+            unsigned IC4F : 4;
+        };
+    };
+} TIM_CCMR2_t;
+
+typedef struct
+{
+    unsigned CC1E : 1;
+    unsigned CC1P : 1;
+    unsigned      : 2;
+    unsigned CC2E : 1;
+    unsigned CC2P : 1;
+    unsigned      : 2;
+    unsigned CC3E : 1;
+    unsigned CC3P : 1;
+    unsigned      : 2;
+    unsigned CC4E : 1;
+    unsigned CC4P : 1;
+    unsigned      : 2;
+} TIM_CCER_t;
+
+typedef struct
+{
+    unsigned DBA : 5;
+    unsigned     : 3;
+    unsigned DBL : 5;
+    unsigned     : 3;
+} TIM_DCR_t;
+
+static volatile TIM_CR1_t*   const TIM2_CR1   = (void*) _TIM2 + 0x00;
+static volatile TIM_CR2_t*   const TIM2_CR2   = (void*) _TIM2 + 0x04;
+static volatile TIM_SMCR_t*  const TIM2_SMCR  = (void*) _TIM2 + 0x08;
+static volatile TIM_DIER_t*  const TIM2_DIER  = (void*) _TIM2 + 0x0C;
+static volatile TIM_SR_t*    const TIM2_SR    = (void*) _TIM2 + 0x10;
+static volatile TIM_EGR_t*   const TIM2_EGR   = (void*) _TIM2 + 0x14;
+static volatile TIM_CCMR1_t* const TIM2_CCMR1 = (void*) _TIM2 + 0x18;
+static volatile TIM_CCMR2_t* const TIM2_CCMR2 = (void*) _TIM2 + 0x1C;
+static volatile TIM_CCER_t*  const TIM2_CCER  = (void*) _TIM2 + 0x20;
+static volatile uint16_t*    const TIM2_CNT   = (void*) _TIM2 + 0x24;
+static volatile uint16_t*    const TIM2_PSC   = (void*) _TIM2 + 0x28;
+static volatile uint16_t*    const TIM2_ARR   = (void*) _TIM2 + 0x2C;
+static volatile uint16_t*    const TIM2_CCR1  = (void*) _TIM2 + 0x34;
+static volatile uint16_t*    const TIM2_CCR2  = (void*) _TIM2 + 0x38;
+static volatile uint16_t*    const TIM2_CCR3  = (void*) _TIM2 + 0x3C;
+static volatile uint16_t*    const TIM2_CCR4  = (void*) _TIM2 + 0x40;
+static volatile TIM_DCR_t*   const TIM2_DCR   = (void*) _TIM2 + 0x48;
+static volatile uint16_t*    const TIM2_DMAR  = (void*) _TIM2 + 0x4C;
+
+
+/* ------------------------------------------------------------------
  *   Inter-integrated circuit interface (I2C)
  * ------------------------------------------------------------------
  */
