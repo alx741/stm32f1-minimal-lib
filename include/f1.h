@@ -5,7 +5,23 @@
  *   IRQ handlers
  * ----------------------------------------------
  */
-#define _weak_  void __attribute__ ((weak, isr))
+
+// Enable IRQs with CMSIS functions and enable peripheral interrupts
+//
+//     __enable_irq();
+//     NVIC_EnableIRQ(TIM2_IRQ);
+//     ...
+//     TIM2_DIER->UIE = true;
+//
+//
+// Handle ISRs in your own code
+//
+//     void TIM2_ISR(void)
+//     {
+//         // do something here
+//     }
+//
+#define _weak_  void __attribute__ ((weak, isr("IRQ")))
 _weak_     WWDG_ISR(void),                     I2C2_ER_ISR(void);
 _weak_     PVD_ISR(void),                      SPI1_ISR(void);
 _weak_     TAMPER_ISR(void),                   SPI2_ISR(void);
@@ -40,6 +56,81 @@ _weak_     TIM4_ISR(void),                     CAN2_RX0_ISR(void);
 _weak_     I2C1_EV_ISR(void),                  CAN2_RX1_ISR(void);
 _weak_     I2C1_ER_ISR(void),                  CAN2_SCE_ISR(void);
 _weak_     I2C2_EV_ISR(void),                  OTG_FS_ISR(void);
+
+
+/* ----------------------------------------------
+ *   IRQs
+ * ----------------------------------------------
+ */
+
+#define   WWDG_IRQ              0
+#define   PVD_IRQ               1
+#define   TAMPER_IRQ            2
+#define   RTC_IRQ               3
+#define   FLASH_IRQ             4
+#define   RCC_IRQ               5
+#define   EXTI0_IRQ             6
+#define   EXTI1_IRQ             7
+#define   EXTI2_IRQ             8
+#define   EXTI3_IRQ             9
+#define   EXTI4_IRQ             10
+#define   DMA1_CHANNEL1_IRQ     11
+#define   DMA1_CHANNEL2_IRQ     12
+#define   DMA1_CHANNEL3_IRQ     13
+#define   DMA1_CHANNEL4_IRQ     14
+#define   DMA1_CHANNEL5_IRQ     15
+#define   DMA1_CHANNEL6_IRQ     16
+#define   DMA1_CHANNEL7_IRQ     17
+#define   ADC1_2_IRQ            18
+#define   USB_HP_CAN_TX_IRQ     19
+#define   USB_LP_CAN_RX0_IRQ    20
+#define   CAN_RX1_IRQ           21
+#define   CAN_SCE_IRQ           22
+#define   EXTI9_5_IRQ           23
+#define   TIM1_BRK_IRQ          24
+#define   TIM1_UP_IRQ           25
+#define   TIM1_TRG_COM_IRQ      26
+#define   TIM1_CC_IRQ           27
+#define   TIM2_IRQ              28
+#define   TIM3_IRQ              29
+#define   TIM4_IRQ              30
+#define   I2C1_EV_IRQ           31
+#define   I2C1_ER_IRQ           32
+#define   I2C2_EV_IRQ           33
+#define   I2C2_ER_IRQ           34
+#define   SPI1_IRQ              35
+#define   SPI2_IRQ              36
+#define   USART1_IRQ            37
+#define   USART2_IRQ            38
+#define   USART3_IRQ            39
+#define   EXTI15_10_IRQ         40
+#define   RTCALARM_IRQ          41
+#define   USBWAKEUP_IRQ         42
+#define   TIM8_BRK_IRQ          43
+#define   TIM8_UP_IRQ           44
+#define   TIM8_TRG_COM_IRQ      45
+#define   TIM8_CC_IRQ           46
+#define   ADC3_IRQ              47
+#define   FSMC_IRQ              48
+#define   SDIO_IRQ              49
+#define   TIM5_IRQ              50
+#define   SPI3_IRQ              51
+#define   UART4_IRQ             52
+#define   UART5_IRQ             53
+#define   TIM6_IRQ              54
+#define   TIM7_IRQ              55
+#define   DMA2_CHANNEL1_IRQ     56
+#define   DMA2_CHANNEL2_IRQ     57
+#define   DMA2_CHANNEL3_IRQ     58
+#define   DMA2_CHANNEL4_5_IRQ   59
+#define   DMA2_CHANNEL5_IRQ     60
+#define   ETH_IRQ               61
+#define   ETH_WKUP_IRQ          62
+#define   CAN2_TX_IRQ           63
+#define   CAN2_RX0_IRQ          64
+#define   CAN2_RX1_IRQ          65
+#define   CAN2_SCE_IRQ          66
+#define   OTG_FS_IRQ            67
 
 
 /* ----------------------------------------------
