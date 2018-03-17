@@ -1,6 +1,7 @@
 #include "cmsis.h"
 #include "f1.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 /* ----------------------------------------------
  *   CM3 Memory Map
@@ -47,14 +48,48 @@ void __WEF(void)                 { __asm__ volatile("WFE\n"); }
 void __WFI(void)                 { __asm__ volatile("WFI\n"); }
 
 
-void NVIC_EnableIRQ(uint8_t IRQn)
+inline static void set_nvic_bit(uint32_t base, uint8_t bit)
 {
-    volatile uint32_t* const NVIC_ISER = (void*) _NVIC_ISER + (IRQn / 32);
-    *NVIC_ISER |= (1 << IRQn % 32);
+    volatile uint32_t* const reg = (void*) base + ((bit / 32) * 4);
+    *reg |= (1 << bit % 32);
+}
+
+inline void NVIC_EnableIRQ(uint8_t IRQn)
+{
+    set_nvic_bit(_NVIC_ISER, IRQn);
+}
+
+inline void NVIC_DisableIRQ(uint8_t IRQn)
+{
+    set_nvic_bit(_NVIC_ICER, IRQn);
+}
+
+inline void NVIC_SetPendingIRQ(uint8_t IRQn)
+{
+    set_nvic_bit(_NVIC_ISPR, IRQn);
+}
+
+inline void NVIC_ClearPendingIRQ(uint8_t IRQn)
+{
+    set_nvic_bit(_NVIC_ICPR, IRQn);
+}
+
+inline uint32_t NVIC_GetPendingIRQ(uint8_t IRQn)
+{
+    volatile uint32_t* const NVIC_ISPR = (void*) _NVIC_ISPR + ((IRQn / 32) * 4);
+    return *NVIC_ISPR & (1 << IRQn % 32);
 }
 
 void NVIC_SetPriority(uint8_t IRQn, uint32_t priority)
 {
-    volatile uint32_t* const NVIC_IPR = (void*) _NVIC_IPR + (7 * 4);
-    *NVIC_IPR |= (1 << 2);
+    volatile uint32_t* const NVIC_IPR = (void*) _NVIC_IPR + ((IRQn / 4) * 4);
+    uint8_t prio = (uint8_t) priority << 4; // STM32F1 uses only the high nibble
+    *NVIC_IPR |= (prio << ((IRQn % 4) * 8));
+}
+
+uint32_t NVIC_GetPriority(uint8_t IRQn)
+{
+    volatile uint32_t* const NVIC_IPR = (void*) _NVIC_IPR + ((IRQn / 4) * 4);
+    uint8_t offset = (IRQn % 4) * 8;
+    return (*NVIC_IPR & (0xFF << offset)) >> offset + 4; // STM32F1 uses only the high nibble
 }
