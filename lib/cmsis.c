@@ -1,5 +1,4 @@
 #include "cmsis.h"
-#include "cm3.h"
 #include "f1.h"
 #include <stdint.h>
 
@@ -47,10 +46,11 @@ void __SEV(void)                 { __asm__ volatile("SEV\n"); }
 void __WEF(void)                 { __asm__ volatile("WFE\n"); }
 void __WFI(void)                 { __asm__ volatile("WFI\n"); }
 
+
 void NVIC_EnableIRQ(uint8_t IRQn)
 {
-    volatile uint32_t* const NVIC_ISER = (void*) _NVIC_ISER;
-    *NVIC_ISER |= (1 << IRQn);
+    volatile uint32_t* const NVIC_ISER = (void*) _NVIC_ISER + (IRQn / 32);
+    *NVIC_ISER |= (1 << IRQn % 32);
 }
 
 void NVIC_SetPriority(uint8_t IRQn, uint32_t priority)

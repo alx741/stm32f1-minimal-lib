@@ -85,7 +85,6 @@ ACCEL_t mpu6050_read_accel(void)
 {
     DATA_POINT_t data_point;
     ACCEL_RAW_t accel_raw;
-    ACCEL_t accel;
     i2c_start();
     i2c_transmit_bytes(MPU_ADDR, (uint8_t[]){ACCEL_REG}, 1);
     i2c_start();
