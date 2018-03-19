@@ -7,9 +7,16 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 void delay(void);
 
+volatile float gx = 0;
+volatile float gy = 0;
+volatile float gz = 0;
+volatile float ax = 0;
+volatile float ay = 0;
+volatile float az = 0;
 volatile float x = 0;
 volatile float y = 0;
 volatile float z = 0;
@@ -19,9 +26,18 @@ void TIM2_ISR(void)
 {
     TIM2_SR->UIF = false;
     GYRO_t gyro = mpu6050_read_gyro();
-    x += gyro.x / 100;
-    y += gyro.y / 100;
-    z += gyro.z / 100;
+    ACCEL_t accel = mpu6050_read_accel();
+
+    gx += gyro.x / 100;
+    gy += gyro.y / 100;
+    gz += gyro.z / 100;
+
+    ax = atan2f(accel.y, accel.z) * (180/M_PI);
+    ay = atan2f(accel.x, accel.z) * (180/M_PI);
+
+    x = (0.95 * gx) + (0.05 * ax);
+    y = (0.95 * gy) + (0.05 * ay);
+    z = gz;
 }
 
 void setup_timer(void)
@@ -60,28 +76,9 @@ int main(void)
 
     setup_timer();
 
-    /* int somechar; */
     while (true)
     {
-        /* ACCEL_t accel = mpu6050_read_accel(); */
-        /* printf("x = %f, y = %f, z = %f\r\n", accel.x, accel.y, accel.z); */
-
-        printf("x = %.1f\ty = %.1f\tz = %.1f\t\r\n", x, y, z);
-
-        /* float temp = mpu6050_read_temp(); */
-        /* printf("temp = %f\r\n", temp); */
-
-        /* somechar = getchar(); */
-        /* if (somechar == 'o') */
-        /* { */
-        /*     PORTC->ODR15 = true; */
-        /*     printf("on\r\n"); */
-        /* } */
-        /* else */
-        /* { */
-        /*     PORTC->ODR15 = false; */
-        /*     printf("off\r\n"); */
-        /* } */
+        printf("x = %.1f\ty = %.1f\tz = %.1f\t   \t   \t\r\n", x, y, z);
     }
 }
 

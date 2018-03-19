@@ -10,9 +10,8 @@ OBJECTS=$(foreach c_file, $(wildcard $(SRC_DIR)/*.c), $(c_file:.c=.o))
 $(BINARY).bin: $(BINARY).elf
 	arm-none-eabi-objcopy -O binary $^ $@
 
-# TODO: Remove libstm32f1 depedency
-$(BINARY).elf: $(OBJECTS) $(STM32F1LIB_DIR)/libstm32f1.a
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -nostartfiles -Wl,--gc-sections,-static -L$(STM32F1LIB_DIR) -L$(STM32F1LIB_LINKER_DIR) -T$(STM32F1LIB_LINKER_DIR)/$(LINKER_SCRIPT) $^ -lstm32f1 -o $@
+$(BINARY).elf: $(OBJECTS)
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -nostartfiles -Wl,--gc-sections,-static -L$(STM32F1LIB_DIR) -L$(STM32F1LIB_LINKER_DIR) -T$(STM32F1LIB_LINKER_DIR)/$(LINKER_SCRIPT) $^ -lstm32f1 -lm -o $@
 
 %.o: %.c
 	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -c -I$(STM32F1LIB_INCLUDE_DIR) $^ -o $@
