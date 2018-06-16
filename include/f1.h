@@ -820,6 +820,25 @@ static volatile uint16_t*    const TIM2_CCR4  = (void*) _TIM2 + 0x40;
 static volatile TIM_DCR_t*   const TIM2_DCR   = (void*) _TIM2 + 0x48;
 static volatile uint16_t*    const TIM2_DMAR  = (void*) _TIM2 + 0x4C;
 
+static volatile TIM_CR1_t*   const TIM3_CR1   = (void*) _TIM3 + 0x00;
+static volatile TIM_CR2_t*   const TIM3_CR2   = (void*) _TIM3 + 0x04;
+static volatile TIM_SMCR_t*  const TIM3_SMCR  = (void*) _TIM3 + 0x08;
+static volatile TIM_DIER_t*  const TIM3_DIER  = (void*) _TIM3 + 0x0C;
+static volatile TIM_SR_t*    const TIM3_SR    = (void*) _TIM3 + 0x10;
+static volatile TIM_EGR_t*   const TIM3_EGR   = (void*) _TIM3 + 0x14;
+static volatile TIM_CCMR1_t* const TIM3_CCMR1 = (void*) _TIM3 + 0x18;
+static volatile TIM_CCMR2_t* const TIM3_CCMR2 = (void*) _TIM3 + 0x1C;
+static volatile TIM_CCER_t*  const TIM3_CCER  = (void*) _TIM3 + 0x20;
+static volatile uint16_t*    const TIM3_CNT   = (void*) _TIM3 + 0x24;
+static volatile uint16_t*    const TIM3_PSC   = (void*) _TIM3 + 0x28;
+static volatile uint16_t*    const TIM3_ARR   = (void*) _TIM3 + 0x2C;
+static volatile uint16_t*    const TIM3_CCR1  = (void*) _TIM3 + 0x34;
+static volatile uint16_t*    const TIM3_CCR2  = (void*) _TIM3 + 0x38;
+static volatile uint16_t*    const TIM3_CCR3  = (void*) _TIM3 + 0x3C;
+static volatile uint16_t*    const TIM3_CCR4  = (void*) _TIM3 + 0x40;
+static volatile TIM_DCR_t*   const TIM3_DCR   = (void*) _TIM3 + 0x48;
+static volatile uint16_t*    const TIM3_DMAR  = (void*) _TIM3 + 0x4C;
+
 
 /* ------------------------------------------------------------------
  *   Inter-integrated circuit interface (I2C)
