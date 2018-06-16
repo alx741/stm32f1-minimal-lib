@@ -671,110 +671,28 @@ typedef struct
 
 typedef struct
 {
-    unsigned CC1S : 2;
-    union
-    {
-        struct
-        {
-            unsigned OC1FE : 1;
-            unsigned OC1PE : 1;
-        };
-        struct
-        {
-            unsigned IC1PSC : 2;
-        };
-    };
-    union
-    {
-        struct
-        {
-            unsigned OC1M : 3;
-            unsigned OC1CE : 1;
-        };
-        struct
-        {
-            unsigned IC1F : 4;
-        };
-    };
-    unsigned CC2S : 2;
-    union
-    {
-        struct
-        {
-            unsigned OC2FE : 1;
-            unsigned OC2PE : 1;
-        };
-        struct
-        {
-            unsigned IC2PSC : 2;
-        };
-    };
-    union
-    {
-        struct
-        {
-            unsigned OC2M : 3;
-            unsigned OC2CE : 1;
-        };
-        struct
-        {
-            unsigned IC2F : 4;
-        };
-    };
+    unsigned CC1S  : 2;
+    unsigned OC1FE : 1;
+    unsigned OC1PE : 1;
+    unsigned OC1M  : 3;
+    unsigned OC1CE : 1;
+    unsigned OC2FE : 1;
+    unsigned OC2PE : 1;
+    unsigned OC2M  : 3;
+    unsigned OC2CE : 1;
 } TIM_CCMR1_t;
 
 typedef struct
 {
-    unsigned CC3S : 2;
-    union
-    {
-        struct
-        {
-            unsigned OC3FE : 1;
-            unsigned OC3PE : 1;
-        };
-        struct
-        {
-            unsigned IC3PSC : 2;
-        };
-    };
-    union
-    {
-        struct
-        {
-            unsigned OC3M : 3;
-            unsigned OC3CE : 1;
-        };
-        struct
-        {
-            unsigned IC3F : 4;
-        };
-    };
-    unsigned CC4S : 2;
-    union
-    {
-        struct
-        {
-            unsigned OC4FE : 1;
-            unsigned OC4PE : 1;
-        };
-        struct
-        {
-            unsigned IC4PSC : 2;
-        };
-    };
-    union
-    {
-        struct
-        {
-            unsigned OC4M : 3;
-            unsigned OC4CE : 1;
-        };
-        struct
-        {
-            unsigned IC4F : 4;
-        };
-    };
+    unsigned CC3S  : 2;
+    unsigned OC3FE : 1;
+    unsigned OC3PE : 1;
+    unsigned OC3M  : 3;
+    unsigned OC3CE : 1;
+    unsigned OC4FE : 1;
+    unsigned OC4PE : 1;
+    unsigned OC4M  : 3;
+    unsigned OC4CE : 1;
 } TIM_CCMR2_t;
 
 typedef struct
