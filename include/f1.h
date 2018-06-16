@@ -138,8 +138,8 @@ _weak_     I2C2_EV_ISR(void),                  OTG_FS_ISR(void);
  * ----------------------------------------------
  */
 #define _TIM2            0x40000000
-#define _TIM3            0x40004000
-#define _TIM4            0x40008000
+#define _TIM3            0x40000400
+#define _TIM4            0x40000800
 #define _RTC             0x40002800
 #define _WWDG            0x40002C00
 #define _IWDG            0x40003000
