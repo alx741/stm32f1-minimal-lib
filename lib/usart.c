@@ -1,8 +1,9 @@
 #include "usart.h"
 #include "f1.h"
-#include <stdbool.h>
-#include <unistd.h>
 #include <errno.h>
+#include <stdbool.h>
+#include <string.h>
+#include <unistd.h>
 
 void usart_init_72mhz_9600baud(void)
 {
@@ -32,13 +33,10 @@ int _read(int file, char *ptr, int len)
     int c;
 	if (file == STDIN_FILENO)
     {
-		for (i = 0; i<len; i++)
-        {
-            while (! USART1_SR->RXNE);
-            c = USART1_DR->DR;
-            ptr[i] = 0x000000FF & c;
-        }
-		return i;
+        while (! USART1_SR->RXNE);
+        c = USART1_DR->DR;
+        ptr[0] = 0x000000FF & c;
+        return 1;
 	}
 
 	errno = EIO;
