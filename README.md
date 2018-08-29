@@ -23,7 +23,7 @@ Configure the parameters in the `Makefile`
 * Low level registers are available in `f1.h` to be used like in `register.bit = value;`
 * RCC
 * CMSIS (partial)
-* USART
+* USART (works well with *stdio* functions like printf, fgets, etc)
 * I2C
 
 ### External drivers
