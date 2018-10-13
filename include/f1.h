@@ -676,6 +676,7 @@ typedef struct
     unsigned OC1PE : 1;
     unsigned OC1M  : 3;
     unsigned OC1CE : 1;
+    unsigned CC2S  : 2;
     unsigned OC2FE : 1;
     unsigned OC2PE : 1;
     unsigned OC2M  : 3;
@@ -689,6 +690,7 @@ typedef struct
     unsigned OC3PE : 1;
     unsigned OC3M  : 3;
     unsigned OC3CE : 1;
+    unsigned CC4S  : 2;
     unsigned OC4FE : 1;
     unsigned OC4PE : 1;
     unsigned OC4M  : 3;
