@@ -6,7 +6,7 @@ libstm32f1.a: $(OBJECTS)
 	arm-none-eabi-ar -crs $@ $^
 
 %.o: %.c
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -c -I $(INC_DIR) $^ -o $@
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -ggdb -c -I $(INC_DIR) $^ -o $@
 
 clean:
 	rm -f $(OBJECTS) libstm32f1.a
