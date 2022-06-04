@@ -24,6 +24,11 @@ caddr_t __attribute__((weak)) _sbrk(int incr)
     return (caddr_t) prev_heap_end;
 }
 
+void __attribute__((weak)) _exit(int status)
+{
+    // FIXME: halt
+}
+
 int __attribute__((weak)) _close(int file)
 {
     return -1;
@@ -35,9 +40,19 @@ int __attribute__((weak)) _fstat(int file, struct stat *st)
     return 0;
 }
 
+int __attribute__((weak)) _getpid(void)
+{
+    return 1;
+}
+
 int __attribute__((weak)) _isatty(int file)
 {
     return 1;
+}
+
+int __attribute__((weak)) _kill(char *old, char *new)
+{
+    return -1;
 }
 
 int __attribute__((weak)) _lseek(int file, int ptr, int dir)
